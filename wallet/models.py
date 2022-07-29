@@ -29,5 +29,10 @@ class Account(models.Model):
     accType = models.CharField(max_length=255, blank=True)
     accName = models.CharField(max_length=255, blank=True)
     savings = models.IntegerField()
-    wallet = models.ForeignKey('Wallet', blank=True, null=True, default_auto_field=True)
-    destination = models.CharField(max_length=255, blank=True)
+    wallet = models.ForeignKey('Wallet', on_delete= models.DO_NOTHING)
+    # destination = models.CharField(max_length=255, blank=True)
+
+class Transaction(models.Model):
+    dateTime = models.DateTimeField(auto_now_add=True)
+    amount = models.IntegerField()
+    
