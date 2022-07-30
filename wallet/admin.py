@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer
+from .models import Card, Customer
 from .models import Wallet
 from .models import Account
 from .models import Transaction
@@ -27,6 +27,11 @@ class TransactionAdmin(admin.ModelAdmin):
     list_display = ('dateTime','transaction_type','amount', 'third_party')
     search_fields = ("dateTime","transaction_type","third_party")
 admin.site.register(Transaction, TransactionAdmin)
+
+class CardAdmin(admin.ModelAdmin):
+    list_display = ('card_name','account')
+    search_fields= ('card_number','card_name')
+admin.site.register(Card, CardAdmin)
 
 class ThirdPartyAdmin(admin.ModelAdmin):
     lisr_display = ('fullname', 'email', 'phoneNumber')

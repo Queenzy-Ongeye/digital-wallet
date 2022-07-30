@@ -1,13 +1,16 @@
-from datetime import timezone
 import datetime
-from random import choices
 from django.db import models
+# from django_countries.fields import CountryField
+
 
 # Create your models here.
+
+marital_status = ('Married', 'Single', 'Divorced')
+transact = ('Deposit', 'Withdraw')
 class Customer(models.Model):
     first_name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
-    gender = models.CharField(max_length=10, choices=['Male', 'Female'])
+    gender = models.CharField(max_length=10)
     address = models.TextField()
     age = models.PositiveIntegerField()
     nationality = models.CharField(max_length=15)
@@ -17,7 +20,7 @@ class Customer(models.Model):
     profile = models.ImageField(default = False)
     signature = models.ImageField(default = False)
     employment_status = models.BooleanField(default=False)
-    marital_status = models.CharField(max_length=20, null = True,choices = ['Married', 'Single', 'Divorced'])
+    maritalStatus = models.CharField(max_length=20, null = True)
 
 
 class Wallet(models.Model):
@@ -38,10 +41,15 @@ class Account(models.Model):
 class Transaction(models.Model):
     dateTime = models.DateTimeField(default = datetime.datetime.now)
     amount = models.IntegerField()
-    transaction_type = models.CharField(max_length=255, choices = ['Deposit', 'Withdraw'])
+    transaction_type = models.CharField(max_length=255)
     customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
     third_party = models.ForeignKey('ThirdParty', on_delete=models.CASCADE)
 
+class Card(models.Model):
+    card_number = models.CharField(max_length=25, blank=True)
+    card_name = models.CharField(max_length=25, blank=True)
+    account = models.ForeignKey('Account', on_delete=models.CASCADE)
+    pin_number = models.CharField(max_length = 5, blank=True)
 
 class ThirdParty(models.Model):
     fullname = models.CharField(max_length=25, blank=True)
@@ -51,8 +59,7 @@ class ThirdParty(models.Model):
     currency = models.OneToOneField('Currency', max_length=20, on_delete=models.CASCADE)
     isActive = models.BooleanField(default=False, blank=True)
     account = models.ForeignKey('Account', blank=True, on_delete=models.CASCADE)
-
 class Currency(models.Model):
-    country = models.CharField(max_length=25, blank=True)
+    country = models.CharField(max_length=25)
     symbol = models.CharField(max_length=25, blank=True)
     name = models.CharField(max_length=25, blank=True)
