@@ -2,6 +2,9 @@ from django.contrib import admin
 from .models import Customer
 from .models import Wallet
 from .models import Account
+from .models import Transaction
+from .models import ThirdParty
+from .models import Currency
 # Register your models here.
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ("first_name", "last_name", "email")
@@ -19,3 +22,18 @@ class AccountAdmin(admin.ModelAdmin):
     list_display = ("accName", "accType", "savings")
     search_fields = ("accName","accType")
 admin.site.register(Account, AccountAdmin)
+
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('dateTime','transaction_type','amount', 'third_party')
+    search_fields = ("dateTime","transaction_type","third_party")
+admin.site.register(Transaction, TransactionAdmin)
+
+class ThirdPartyAdmin(admin.ModelAdmin):
+    lisr_display = ('fullname', 'email', 'phoneNumber')
+    search_fields = ("fullname", "email", "phoneNumber")
+admin.site.register(ThirdParty, ThirdPartyAdmin)
+
+class CurrencyAdmin(admin.ModelAdmin):
+    list_display = ('country', 'name', 'symbol')
+    search_fields = ("symbol", "country", "name")
+admin.site.register(Currency, CurrencyAdmin)

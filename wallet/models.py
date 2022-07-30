@@ -1,38 +1,58 @@
+from datetime import timezone
+import datetime
+from random import choices
 from django.db import models
 
 # Create your models here.
 class Customer(models.Model):
     first_name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
-    gender = models.CharField(max_length=10)
+    gender = models.CharField(max_length=10, choices=['Male', 'Female'])
     address = models.TextField()
     age = models.PositiveIntegerField()
     nationality = models.CharField(max_length=15)
     id_number = models.CharField(max_length=10)
     phone_number = models.CharField(max_length=15)
     email = models.EmailField()
-    # profile = models.ImageField()
-    # signature = models.ImageField()
+    profile = models.ImageField(default = False)
+    signature = models.ImageField(default = False)
     employment_status = models.BooleanField(default=False)
-    # marital_status = models.CharField(max_length=20)
+    marital_status = models.CharField(max_length=20, null = True,choices = ['Married', 'Single', 'Divorced'])
 
 
 class Wallet(models.Model):
    customer = models.OneToOneField('Customer',on_delete=models.DO_NOTHING)
-   date = models.DateTimeField(auto_now_add=True)
+   date = models.DateTimeField(default = datetime.datetime.now)
    pin = models.IntegerField()
    isActive = models.BooleanField(default=False)
-   balance = models.IntegerField()
+   balance = models.DecimalField(max_digits=20, decimal_places=2)
 
 
 class Account(models.Model):
     accType = models.CharField(max_length=255, blank=True)
     accName = models.CharField(max_length=255, blank=True)
     savings = models.IntegerField()
-    wallet = models.ForeignKey('Wallet', on_delete= models.DO_NOTHING)
+    wallet = models.ForeignKey('Wallet', on_delete= models.CASCADE)
     # destination = models.CharField(max_length=255, blank=True)
 
 class Transaction(models.Model):
-    dateTime = models.DateTimeField(auto_now_add=True)
+    dateTime = models.DateTimeField(default = datetime.datetime.now)
     amount = models.IntegerField()
-    
+    transaction_type = models.CharField(max_length=255, choices = ['Deposit', 'Withdraw'])
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    third_party = models.ForeignKey('ThirdParty', on_delete=models.CASCADE)
+
+
+class ThirdParty(models.Model):
+    fullname = models.CharField(max_length=25, blank=True)
+    email = models.EmailField(max_length=255, blank=True)
+    phoneNumber = models.CharField(max_length=20, blank=True)
+    transaction_cost = models.IntegerField()
+    currency = models.OneToOneField('Currency', max_length=20, on_delete=models.CASCADE)
+    isActive = models.BooleanField(default=False, blank=True)
+    account = models.ForeignKey('Account', blank=True, on_delete=models.CASCADE)
+
+class Currency(models.Model):
+    country = models.CharField(max_length=25, blank=True)
+    symbol = models.CharField(max_length=25, blank=True)
+    name = models.CharField(max_length=25, blank=True)
