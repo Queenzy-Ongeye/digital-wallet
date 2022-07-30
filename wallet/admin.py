@@ -29,7 +29,7 @@ class TransactionAdmin(admin.ModelAdmin):
 admin.site.register(Transaction, TransactionAdmin)
 
 class CardAdmin(admin.ModelAdmin):
-    list_display = ('card_name','account')
+    list_display = ('card_name','card_account', 'expiry_date', 'card_number')
     search_fields= ('card_number','card_name')
 admin.site.register(Card, CardAdmin)
 

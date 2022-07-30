@@ -1,4 +1,6 @@
 import datetime
+from email.policy import default
+from inspect import signature
 from django.db import models
 # from django_countries.fields import CountryField
 
@@ -48,8 +50,14 @@ class Transaction(models.Model):
 class Card(models.Model):
     card_number = models.CharField(max_length=25, blank=True)
     card_name = models.CharField(max_length=25, blank=True)
-    account = models.ForeignKey('Account', on_delete=models.CASCADE)
+    card_account = models.ForeignKey('Account', on_delete=models.CASCADE)
     pin_number = models.CharField(max_length = 5, blank=True)
+    security_code = models.CharField(max_length = 5, blank=True)
+    expiry_date = models.DateTimeField(default = datetime.datetime.now)
+    card_staus = models.CharField(max_length = 6, blank=True)
+    signature_card = models.ForeignKey( 'Customer',  on_delete=models.CASCADE, default = False)
+
+
 
 class ThirdParty(models.Model):
     fullname = models.CharField(max_length=25, blank=True)
