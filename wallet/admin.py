@@ -20,13 +20,13 @@ class WalletAdmin(admin.ModelAdmin):
 admin.site.register(Wallet, WalletAdmin)
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ("accName", "accType", "savings")
-    search_fields = ("accName","accType")
+    list_display = ("acc_name", "acc_type", "savings")
+    search_fields = ("acc_name","acc_type")
 admin.site.register(Account, AccountAdmin)
 
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('dateTime','transaction_type','amount', 'third_party')
-    search_fields = ("dateTime","transaction_type","third_party")
+    list_display = ('date_time','transaction_type','amount')
+    search_fields = ("date_time","transaction_type")
 admin.site.register(Transaction, TransactionAdmin)
 
 class CardAdmin(admin.ModelAdmin):
@@ -51,7 +51,7 @@ admin.site.register(Loan, LoanAdmin)
 
 
 class RewardAdmin(admin.ModelAdmin):
-    list_display = ('bonus','wallet', 'date_time')
+    list_display = ('points', 'date_time')
     search_fields= ('wallet','date_time')
 admin.site.register(Reward, RewardAdmin)
 

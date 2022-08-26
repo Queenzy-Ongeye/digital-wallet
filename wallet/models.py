@@ -24,33 +24,54 @@ class Customer(models.Model):
     profile = models.ImageField(default=False)
     signature = models.ImageField(default=False)
     employment_status = models.BooleanField(default=False)
-    maritalStatus = models.CharField(
+    marital_status = models.CharField(
         max_length=20, null=True)
+    
+    
+    # def __str__(self):
+    #     return self.first_name
 
 
 class Wallet(models.Model):
-    customer = models.OneToOneField('Customer', on_delete=models.DO_NOTHING)
+    customer = models.OneToOneField('Customer', on_delete=models.DO_NOTHING , related_name= 'customer')
     date = models.DateTimeField(default=datetime.datetime.now)
     pin = models.IntegerField()
-    isActive = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     balance = models.DecimalField(max_digits=20, decimal_places=2)
 
+    # def __str__(self):
+    #     return self.customer
 
 class Account(models.Model):
-    accType = models.CharField(max_length=255, blank=True)
-    accName = models.CharField(max_length=255, blank=True)
+    acc_type = models.CharField(max_length=255, blank=True)
+    acc_name = models.CharField(max_length=255, blank=True)
     savings = models.IntegerField()
     wallet = models.ForeignKey('Wallet', on_delete=models.CASCADE)
     # destination = models.CharField(max_length=255, blank=True)
 
+    # def __str__(self):
+    #     return self.accName
 
-class Transaction(models.Model):
-    dateTime = models.DateTimeField(default=datetime.datetime.now)
-    amount = models.IntegerField()
-    transaction_type = models.CharField(max_length=255)
-    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
-    third_party = models.ForeignKey('ThirdParty', on_delete=models.CASCADE)
 
+class Reward(models.Model):
+    wallet = models.ForeignKey(Wallet,on_delete=models.CASCADE,default=False,blank=True)
+    points = models.IntegerField(default=False)
+    date_time = models.DateTimeField(null=True)
+    transaction = models.ForeignKey('Transaction',on_delete=models.CASCADE,default=False, blank=True)
+
+class Transaction (models.Model):
+    date_time = models.DateTimeField(null = True)
+    amount = models.IntegerField(default=0)
+    transaction_type = models.CharField(max_length=15,blank=True, default=False)
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE, blank=True, default=False)
+    transaction_code = models.CharField(max_length=15,blank=True, default=False)
+    charge = models.IntegerField(default=0)
+    status = models.CharField(max_length=15,blank=True, default=False)
+    origin_account = models.ForeignKey("Account", on_delete=models.CASCADE,related_name="Transaction_Receipt",blank=True, default=False)
+    destination_account = models.ForeignKey("Account", on_delete=models.CASCADE,default=False, blank=True)
+
+    # def __str__(self):
+    #     return self.transaction_type
 
 class Card(models.Model):
     card_number = models.CharField(max_length=25, blank=True)
@@ -58,6 +79,9 @@ class Card(models.Model):
     card_account = models.ForeignKey('Account', on_delete=models.CASCADE)
     pin_number = models.CharField(max_length=5, blank=True)
     security_code = models.CharField(max_length=5, blank=True)
+
+    # def __str__(self):
+    #     return self.card_name
 
 
 class Notification(models.Model):
@@ -69,9 +93,12 @@ class Notification(models.Model):
         on_delete=models.CASCADE,
         related_name='customer_notification')
 
+    # def __str__(self):
+    #     return self.date_time
+
 
 class Receipt(models.Model):
-    receipt_file = models.FileField()
+    # receipt_file = models.FileField()
     receipt_date = models.DateTimeField(default=datetime.datetime.now)
     total_amount = models.PositiveIntegerField()
     transaction = models.ForeignKey(
@@ -81,6 +108,7 @@ class Receipt(models.Model):
         on_delete=models.CASCADE,
         related_name='receipt_transaction'
     )
+
 
 
 class Loan(models.Model):
@@ -109,35 +137,28 @@ class Loan(models.Model):
     )
     duration = models.PositiveIntegerField()
 
-
-class Reward(models.Model):
-    bonus = models.PositiveSmallIntegerField()
-    transaction = models.ForeignKey(
-        'Transaction',
-        on_delete=models.CASCADE,
-        null=True,
-    )
-    wallet = models.ForeignKey(
-        'Wallet',
-        on_delete=models.CASCADE,
-        related_name='wallet_reward'
-    )
-    date_time = models.DateField(null=True, blank=True)
+    # def __str__(self):
+    #     return self.wallet
 
 
 class ThirdParty(models.Model):
     fullname = models.CharField(max_length=25, blank=True)
     email = models.EmailField(max_length=255, blank=True)
-    phoneNumber = models.CharField(max_length=20, blank=True)
+    phone_number = models.CharField(max_length=20, blank=True)
     transaction_cost = models.IntegerField()
     currency = models.OneToOneField(
         'Currency', max_length=20, on_delete=models.CASCADE)
-    isActive = models.BooleanField(default=False, blank=True)
+    is_active = models.BooleanField(default=False, blank=True)
     account = models.ForeignKey(
         'Account', blank=True, on_delete=models.CASCADE)
 
+    # def __str__(self):
+    #     return self.fullname
 
 class Currency(models.Model):
     country = models.CharField(max_length=25)
     symbol = models.CharField(max_length=25, blank=True)
     name = models.CharField(max_length=25, blank=True)
+
+    # def __str__(self):
+    #     return self.name
