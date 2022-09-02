@@ -6,4 +6,5 @@ urlpatterns = [
     path('register/', register_customer, name='registration'),
     path('createwallet/', register_wallet, name='wallet registration'),
     path('account/', create_account, name='account registration'),
+    path('transaction/', create_account, name='transaction registration'),
 ]
