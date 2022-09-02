@@ -1,6 +1,6 @@
 from dataclasses import field
 from django import forms
-from .models import Customer, Reward, Transaction,Wallet,Account
+from .models import Card, Customer, Reward, Transaction,Wallet,Account
 
 class CustomerRegistrationForm(forms.ModelForm):
     class Meta:
@@ -25,4 +25,9 @@ class RewardRegistrationForm(forms.ModelForm):
 class TransactionRegistrationForm(forms.ModelForm):
     class Meta:
         model = Transaction
+        fields = "__all__"
+
+class CardRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Card
         fields = "__all__"

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import AccountRegistrationForm, CustomerRegistrationForm, RewardRegistrationForm, TransactionRegistrationForm, WalletRegistrationForm
+from .forms import AccountRegistrationForm, CardRegistrationForm, CustomerRegistrationForm, RewardRegistrationForm, TransactionRegistrationForm, WalletRegistrationForm
 
 # Create your views here.
 def register_customer(request):
@@ -21,3 +21,7 @@ def create_reward(request):
 def create_transaction(request):
     form = TransactionRegistrationForm()
     return render(request, 'wallet/create_transaction.html', {'form': form})
+
+def create_card(request):
+    form = CardRegistrationForm() #initializing the form by
+    return render(request, 'wallet/create_card.html', {'form': form})
