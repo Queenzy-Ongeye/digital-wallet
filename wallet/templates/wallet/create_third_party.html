@@ -12,6 +12,7 @@
         <!-- CSFR token is to ensure that when the data is 
         submitted it can be validated that it came from the server -->
         {% csrf_token %}
+
         {{form.as_p}}
         
         <button type="submit" class="btn btn-primary">Register</button>

@@ -21,8 +21,8 @@ class Customer(models.Model):
     id_number = models.CharField(max_length=10)
     phone_number = models.CharField(max_length=15)
     email = models.EmailField()
-    profile = models.ImageField(default=False)
-    signature = models.ImageField(default=False)
+    # profile = models.ImageField()
+    # signature = models.ImageField()
     employment_status = models.BooleanField(default=False)
     marital_status = models.CharField(
         max_length=20, null=True)
