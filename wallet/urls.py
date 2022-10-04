@@ -38,7 +38,6 @@ urlpatterns = [
     path('receipt-display/<int:id>', receipt_display, name='receipt-display'),
 
     # Editing customer information
-    path('customers/edit/<int:id>', edit_customer_profile, name = 'edit_customer_profile'),
     path('wallet-list/edit/<int:id>', edit_wallet, name = 'edit_wallet'),
     path('accounts-list/edit/<int:id>', edit_account, name = 'edit_account'),
     path('receipt-list/edit/<int:id>', edit_receipt, name = 'edit_receipt'),
