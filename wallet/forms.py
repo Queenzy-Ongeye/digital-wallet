@@ -37,7 +37,7 @@ class NotificationRegistrationForm(forms.ModelForm):
         model = Notification
         fields = "__all__"
 
-class RecieptRegistrationForm(forms.ModelForm):
+class ReceiptRegistrationForm(forms.ModelForm):
     class Meta:
         model = Receipt
         fields = "__all__"

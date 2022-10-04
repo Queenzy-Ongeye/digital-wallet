@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import account_display, account_list, card_display, card_list, create_account, create_card, create_notification, create_receipt, create_third_party, currency_list, customer_list, customer_profile, edit_customer_profile, loan_list, notifcation_list, receipt_display, receipt_list, register_currency, register_customer, register_wallet, request_loan, reward_list, third_party_list, transaction_display, transaction_list, wallet_display, wallet_list
+from .views import account_display, account_list, card_display, card_list, create_account, create_card, create_notification, create_receipt, create_third_party, currency_list, customer_list, customer_profile, edit_account, edit_card, edit_customer_profile, edit_receipt, edit_transaction, edit_wallet, loan_list, notifcation_list, receipt_display, receipt_list, register_currency, register_customer, register_wallet, request_loan, reward_list, third_party_list, transaction_display, transaction_list, wallet_display, wallet_list
 
 urlpatterns = [
     # Constracting routing configuration
@@ -39,4 +39,9 @@ urlpatterns = [
 
     # Editing customer information
     path('customers/edit/<int:id>', edit_customer_profile, name = 'edit_customer_profile'),
+    path('wallet-list/edit/<int:id>', edit_wallet, name = 'edit_wallet'),
+    path('accounts-list/edit/<int:id>', edit_account, name = 'edit_account'),
+    path('receipt-list/edit/<int:id>', edit_receipt, name = 'edit_receipt'),
+    path('card-list/edit/<int:id>', edit_card, name = 'edit_card'),
+    path('transaction-list/edit/<int:id>', edit_transaction, name = 'edit_transaction'),
 ]
