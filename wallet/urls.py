@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import account_list, card_list, create_account, create_card, create_notification, create_receipt, create_third_party, currency_list, customer_list, customer_profile, edit_customer_profile, loan_list, notifcation_list, receipt_list, register_currency, register_customer, register_wallet, request_loan, reward_list, third_party_list, transaction_list, wallet_list
+from .views import account_display, account_list, card_display, card_list, create_account, create_card, create_notification, create_receipt, create_third_party, currency_list, customer_list, customer_profile, edit_customer_profile, loan_list, notifcation_list, receipt_display, receipt_list, register_currency, register_customer, register_wallet, request_loan, reward_list, third_party_list, transaction_display, transaction_list, wallet_display, wallet_list
 
 urlpatterns = [
     # Constracting routing configuration
@@ -31,6 +31,11 @@ urlpatterns = [
 
     # URLS for displaying a single object content 
     path('profile/<int:id>', customer_profile, name='profile'),
+    path('wallet-display/<int:id>', wallet_display, name='wallet-display'),
+    path('account-display/<int:id>', account_display, name='account-display'),
+    path('card-display/<int:id>', card_display, name='wcard-display'),
+    path('transaction-display/<int:id>', transaction_display, name='transaction-display'),
+    path('receipt-display/<int:id>', receipt_display, name='receipt-display'),
 
     # Editing customer information
     path('customers/edit/<int:id>', edit_customer_profile, name = 'edit_customer_profile'),

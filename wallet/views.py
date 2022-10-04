@@ -118,8 +118,6 @@ def register_currency(request):
     return render(request, 'wallet/register_currency.html', {'form': form})
 
 # Displaying the list of customers
-
-
 def customer_list(request):
     customers = Customer.objects.all()
     return render(request, 'wallet/customer.html', {'customers': customers})
@@ -180,6 +178,26 @@ def customer_profile(request, id):
     customer = Customer.objects.get(id=id)
     return render(request, 'wallet/customer-profile.html', {'customer': customer})
 
+def wallet_display(request, id):
+    wallet = Wallet.objects.get(id=id)
+    return render(request, 'wallet/wallet-display.html', {'wallet': wallet})
+
+def account_display(request, id):
+    account = Account.objects.get(id=id)
+    return render(request, 'wallet/account-display.html', {'account': account})
+
+def card_display(request, id):
+    card = Card.objects.get(id=id)
+    return render(request, 'wallet/card-display.html', {'card': card})
+
+def transaction_display(request, id):
+    transaction = Transaction.objects.get(id=id)
+    return render(request, 'wallet/transaction-display.html', {'transaction': transaction})
+
+def receipt_display(request, id):
+    receipt = Receipt.objects.get(id=id)
+    return render(request, 'wallet/receipt-display.html',   {'receipt': receipt})    
+
 
 # Editing the customer profile
 def edit_customer_profile(request, id):
@@ -193,3 +211,5 @@ def edit_customer_profile(request, id):
     else:
         form = CustomerRegistrationForm(instance=customer)
         return render(request, 'wallet/edit_customer.html', {'form': form})
+
+
