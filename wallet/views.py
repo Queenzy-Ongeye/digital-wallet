@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import AccountRegistrationForm, CardRegistrationForm, CurrencyRegistrationForm, CustomerRegistrationForm, LoanRegistrationForm, NotificationRegistrationForm, ReceiptRegistrationForm, RecieptRegistrationForm, RewardRegistrationForm, ThirdPartyRegistrationForm, TransactionRegistrationForm, WalletRegistrationForm
+from .forms import AccountRegistrationForm, CardRegistrationForm, CurrencyRegistrationForm, CustomerRegistrationForm, LoanRegistrationForm, NotificationRegistrationForm, ReceiptRegistrationForm, RewardRegistrationForm, ThirdPartyRegistrationForm, TransactionRegistrationForm, WalletRegistrationForm
 from .models import Account, Card, Currency, Customer, Loan, Notification, Receipt, Reward, ThirdParty, Transaction, Wallet
 
 # Create your views here.
@@ -218,7 +218,7 @@ def edit_wallet(request, id):
         form = WalletRegistrationForm(request.POST, instance=wallet)
         if form.is_valid():
             form.save()
-            return redirect('profile', id=wallet.id)
+            return redirect('wallet-display', id=wallet.id)
 
     else:
         form = WalletRegistrationForm(instance=wallet)
