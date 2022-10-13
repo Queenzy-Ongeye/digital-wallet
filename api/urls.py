@@ -5,12 +5,12 @@ from .views import CardViewSet, CustomerViewSet, LoanViewSet, NotificationViewSe
 router = routers.DefaultRouter()
 
 router.register(r"customers", CustomerViewSet)
-router.create_wallet(r"wallets", WalletViewSet)
-router.create_card(r"cards", CardViewSet)
-router.create_transaction(r"transactions", TransactionViewSet)
-router.create_loan(r"loans", LoanViewSet)
-router.create_receipt(r"receipts", ReceiptViewSet)
-router.create_notification(r"notifications", NotificationViewSet)
+router.register(r"wallets", WalletViewSet)
+router.register(r"cards", CardViewSet)
+router.register(r"transactions", TransactionViewSet)
+router.register(r"loans", LoanViewSet)
+router.register(r"receipts", ReceiptViewSet)
+router.register(r"notifications", NotificationViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
