@@ -95,6 +95,16 @@ class Account(models.Model):
             status = 200
         return message, status
 
+    #  Request loan functionality
+    def request_loan(self, amount):
+        if amount<= 0:
+            message = "Invalid amount"
+            status = 403
+        else:
+            self.acc_balance += amount
+            self.save()
+            message = f"Your "
+
     
 
 
